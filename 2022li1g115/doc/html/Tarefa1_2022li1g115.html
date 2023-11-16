@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Tarefa1_2022li1g115</title><link href="linuwial.css" rel="stylesheet" type="text/css" title="Linuwial" /><link rel="stylesheet" type="text/css" href="quick-jump.css" /><script src="haddock-bundle.min.js" async="async" type="text/javascript"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { processClass: "mathjax", ignoreClass: ".*" } });</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script></head><body><div id="package-header"><span class="caption empty">&nbsp;</span><ul class="links" id="page-menu"><li><a href="index.html">Contents</a></li><li><a href="doc-index.html">Index</a></li></ul></div><div id="content"><div id="module-header"><table class="info"><tr><th valign="top">Copyright</th><td>Gon&#231;alo Carmo &lt;a104619@alunos.uminho.pt&gt;<br />Jo&#227;o Ferreira &lt;a104539@alunos.uminho.pt&gt;</td></tr><tr><th>Safe Haskell</th><td>Safe</td></tr></table><p class="caption">Tarefa1_2022li1g115</p></div><div id="description"><p class="caption">Description</p><div class="doc"><p>M&#243;dulo para a realiza&#231;&#227;o da Tarefa 1 do projeto de LI1 em 2022/23.</p></div></div><div id="synopsis"><details id="syn"><summary>Synopsis</summary><ul class="details-toggle" data-details-id="syn"><li class="src short"><a href="#v:mapaValido">mapaValido</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool</li><li class="src short"><a href="#v:obstaculosValidos">obstaculosValidos</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool</li><li class="src short"><a href="#v:larguraV">larguraV</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool</li><li class="src short"><a href="#v:larguraVaux">larguraVaux</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool</li><li class="src short"><a href="#v:tamanhoV">tamanhoV</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool</li><li class="src short"><a href="#v:nenhumV">nenhumV</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool</li><li class="src short"><a href="#v:contaCarros">contaCarros</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool</li><li class="src short"><a href="#v:contaTroncos">contaTroncos</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool</li><li class="src short"><a href="#v:terrenoV">terrenoV</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool</li><li class="src short"><a href="#v:rioPossivelV">rioPossivelV</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool</li></ul></details></div><div id="interface"><h1>Documentation</h1><div class="top"><p class="src"><a id="v:mapaValido" class="def">mapaValido</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool <a href="#v:mapaValido" class="selflink">#</a></p><div class="doc"><p>A fun&#231;&#227;o &quot;mapaValido&quot; verifica se um mapa fornecido re&#250;ne todas as condi&#231;&#245;es para que seja considerado v&#225;lido </p><pre>
+mapaValido m = (obstaculosValidos m) &amp;&amp; (larguraV m) &amp;&amp; (tamanhoV m) &amp;&amp; (nenhumV m) &amp;&amp; (contaCarros m) &amp;&amp; (contaTroncos m) &amp;&amp; (terrenoV m) &amp;&amp; (rioPossivelV m)
+
+</pre></div></div><div class="top"><p class="src"><a id="v:obstaculosValidos" class="def">obstaculosValidos</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool <a href="#v:obstaculosValidos" class="selflink">#</a></p><div class="doc"><p>A fun&#231;&#227;o &quot;obstaculosValidos&quot; verifica se os obst&#225;culos de um dado mapa s&#227;o validos para um dado terreno</p><pre>
+obstaculosValidos (Mapa _ []) = True
+obstaculosValidos (Mapa l ((tr,[]):t)) = obstaculosValidos (Mapa l t)
+obstaculosValidos (Mapa l ((Relva,(o:os)):t)) | o == Arvore || o == Nenhum = obstaculosValidos (Mapa l ((Relva,os):t))
+                                              | otherwise = False
+obstaculosValidos (Mapa l ((Estrada v,(o:os)):t)) | o == Carro || o == Nenhum = obstaculosValidos (Mapa l ((Estrada v,os):t))
+                                                  | otherwise = False
+obstaculosValidos (Mapa l ((Rio v,(o:os)):t)) | o == Tronco || o == Nenhum = obstaculosValidos (Mapa l ((Rio v,os):t))
+                                              | otherwise = False  
+
+</pre></div></div><div class="top"><p class="src"><a id="v:larguraV" class="def">larguraV</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool <a href="#v:larguraV" class="selflink">#</a></p><div class="doc"><p>A fun&#231;&#227;o &quot;larguraV&quot; verifica se 2 rios contiguos tem dire&#231;ao oposta</p><pre>
+larguraV (Mapa l ((tr1,l1):(tr2,l2):t)) = larguraVaux (Mapa l ((tr1,l1):(tr2,l2):t)) 
+
+</pre></div></div><div class="top"><p class="src"><a id="v:larguraVaux" class="def">larguraVaux</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool <a href="#v:larguraVaux" class="selflink">#</a></p><div class="doc"><p>A fun&#231;&#227;o &quot;larguraVaux&quot; &#233; uma auxiliar da fun&#231;&#227;o &quot;larguraV&quot; que valida a dire&#231;ao de 2 rios contiguos</p><pre>
+larguraVaux (Mapa _ []) = True
+larguraVaux (Mapa l [(tr,_)]) = True
+larguraVaux (Mapa l ((Rio v1,l1):(Rio v2,l2):t)) = (v1*v2) &lt; 0 &amp;&amp; larguraVaux (Mapa l ((Rio v2,l2):t))    
+larguraVaux (Mapa l ((tr1,l1):(tr2,l2):t)) = larguraVaux (Mapa l ((tr2,l2):t))
+
+</pre></div></div><div class="top"><p class="src"><a id="v:tamanhoV" class="def">tamanhoV</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool <a href="#v:tamanhoV" class="selflink">#</a></p><div class="doc"><p>A fun&#231;&#227;o &quot;tamanhoV&quot; valida o tamanho de um terreno</p><pre>
+tamanhoV (Mapa x []) = True
+tamanhoV (Mapa x ((_,l):t)) = (x == (length l))  &amp;&amp; tamanhoV (Mapa x t)                                           
+
+</pre></div></div><div class="top"><p class="src"><a id="v:nenhumV" class="def">nenhumV</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool <a href="#v:nenhumV" class="selflink">#</a></p><div class="doc"><p>A fun&#231;&#227;o &quot;nenhumV&quot; valida se existe pelo menos um espa&#231;o livre em cada terreno </p><pre>
+nenhumV (Mapa x []) = True
+nenhumV (Mapa x ((_,l):t)) = elem Nenhum l &amp;&amp; nenhumV (Mapa x t)                      
+
+</pre></div></div><div class="top"><p class="src"><a id="v:contaCarros" class="def">contaCarros</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool <a href="#v:contaCarros" class="selflink">#</a></p><div class="doc"><p>A fun&#231;&#227;o &quot;contaCarros&quot; valida se o tamanho dos carros &#233; valido </p><pre>
+contaCarros (Mapa _ []) = True
+contaCarros (Mapa x ((tr,[x1,x2,x3]):t)) = contaCarros (Mapa x t)
+contaCarros (Mapa x ((tr,[x1]):t)) = contaCarros (Mapa x t)
+contaCarros (Mapa x ((tr,[x1,x2]):t)) = contaCarros (Mapa x t)
+contaCarros (Mapa x ((tr,(x1:x2:x3:x4:xs)):t)) | (x1 == x2) &amp;&amp; (x2 == x3) &amp;&amp; (x3 == x4) &amp;&amp; (x4 == Carro) = False 
+                                               | otherwise  = contaCarros (Mapa x ((tr,x2:x3:x4:xs):t))
+
+</pre></div></div><div class="top"><p class="src"><a id="v:contaTroncos" class="def">contaTroncos</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool <a href="#v:contaTroncos" class="selflink">#</a></p><div class="doc"><p>A fun&#231;&#227;o &quot;contaTroncos&quot; valida o tamanho de um troco</p><pre>
+contaTroncos (Mapa _ []) = True
+contaTroncos (Mapa x ((tr,[x1]):t)) = contaTroncos (Mapa x t)
+contaTroncos (Mapa x ((tr,[x1,x2]):t)) = contaTroncos (Mapa x t)
+contaTroncos (Mapa x ((tr,[x1,x2,x3]):t)) = contaTroncos (Mapa x t)
+contaTroncos (Mapa x ((tr,[x1,x2,x3,x4]):t)) = contaTroncos (Mapa x t)
+contaTroncos (Mapa x ((tr,[x1,x2,x3,x4,x5]):t)) = contaTroncos (Mapa x t)
+contaTroncos (Mapa x ((tr,(x1:x2:x3:x4:x5:x6:xs)):t)) 
+    | (x1 == x2) &amp;&amp; (x2 == x3) &amp;&amp; (x3 == x4) &amp;&amp; (x4 == x5) &amp;&amp; (x5 == x6) &amp;&amp; (x6 == Tronco) = False 
+    | otherwise  = contaTroncos (Mapa x ((tr,x2:x3:x4:x5:x6:xs):t))
+
+</pre></div></div><div class="top"><p class="src"><a id="v:terrenoV" class="def">terrenoV</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool <a href="#v:terrenoV" class="selflink">#</a></p><div class="doc"><p>A fun&#231;&#227;o &quot;terrenoV&quot; valida se os numeros de terrenos contiguos nao &#233; excedido para os diferentes tipos de terreno</p><pre>
+terrenoV (Mapa _ []) = True
+terrenoV (Mapa l ((Rio v1,l1):(Rio v2,l2):(Rio v3,l3):(Rio v4,l4):(Rio v5,l5):t)) = False 
+terrenoV (Mapa l ((Estrada v1,l1):(Estrada v2,l2):(Estrada v3,l3):(Estrada v4,l4):(Estrada v5,l5):(Estrada v6,l6):t)) = False
+terrenoV (Mapa l ((Relva,l1):(Relva,l2):(Relva,l3):(Relva,l4):(Relva,l5):(Relva,l6):t)) = False
+terrenoV (Mapa l (x:xs)) = terrenoV (Mapa l xs)
+
+</pre></div></div><div class="top"><p class="src"><a id="v:rioPossivelV" class="def">rioPossivelV</a> :: <a href="LI12223.html#t:Mapa" title="LI12223">Mapa</a> -&gt; Bool <a href="#v:rioPossivelV" class="selflink">#</a></p><div class="doc"><p>A fun&#231;&#227;o &quot;rioPossivelV&quot; valida se existe pelo menos um tronco em cada rio</p><pre>
+rioPossivelV (Mapa x []) = True
+rioPossivelV (Mapa x ((Rio _,os):t)) | elem Tronco os &amp;&amp; rioPossivelV (Mapa x t)  
+rioPossivelV (Mapa x ((_,_):t)) = rioPossivelV (Mapa x t)
+
+</pre></div></div></div></div><div id="footer"><p>Produced by <a href="http://www.haskell.org/haddock/">Haddock</a> version 2.23.0</p></div></body></html>
